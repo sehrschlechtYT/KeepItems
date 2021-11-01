@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class DeathListener implements Listener {
+
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
@@ -23,6 +24,7 @@ public class DeathListener implements Listener {
         if(config.isPermissionEnabled() && !player.hasPermission(config.getPermissionValue())) return;
         for(Iterator<ItemStack> iterator = drops.iterator(); iterator.hasNext();) {
             ItemStack item = iterator.next();
+            boolean kept = false;
             if(config.isCustomCraftingItemsEnabled()) {
                 PersistentDataContainer dataContainer = item.getItemMeta().getPersistentDataContainer();
                 for (String stringItem : Config.getInstance().getCustomCraftingItems()) {
@@ -31,11 +33,12 @@ public class DeathListener implements Listener {
                     if(isCustomCraftingItem(dataContainer, namespace, key)) {
                         event.getItemsToKeep().add(item);
                         iterator.remove();
+                        kept = true;
                         break;
                     }
                 }
             }
-            if(config.isMaterialListEnabled()) {
+            if(config.isMaterialListEnabled() && !kept) {
                 if(config.getMaterials().contains(item.getType())) {
                     event.getItemsToKeep().add(item);
                     iterator.remove();
