@@ -1,0 +1,11 @@
+material-list:
+  enabled: false #If the material list is enabled, only items that are in this list will be kept on death.
+  materials: #List of Materials: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+    - BUNDLE
+customcrafting-item:
+  enabled: true #If this is enabled, all items created by the custom crafting plugin by WolfyScript that are defined in the list will be kept on death.
+  items:
+    - "myitems:emerald_sword" #Seperate namespace and key with a ".".
+permission:
+  enabled: false
+  value: "keepitems.use"

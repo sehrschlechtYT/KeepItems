@@ -1,0 +1,16 @@
+name: KeepItems
+version: '${project.version}'
+main: yt.sehrschlecht.keepitems.KeepItems
+api-version: 1.17
+authors: [ sehrschlechtYT ]
+description: Does not drop various items upon death.
+commands:
+  keepitems:
+    permission: keepitems.admin
+    aliases:
+      - keep-items
+    description: The admin command for KeepItems.
+permissions:
+  keepitems.admin:
+    default: op
+    description: Makes the command /keepitems executable.
