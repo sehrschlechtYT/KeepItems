@@ -38,14 +38,14 @@ public class Config {
 
     public static Config getInstance() {
         if(config == null) {
-            config = reload();
+            reload();
         }
         return config;
     }
 
-    public static Config reload() {
+    public static void reload() {
         FileConfiguration configuration = KeepItems.getPlugin().getConfig();
-        return new Config(
+        config = new Config(
                 configuration.getBoolean("material-list.enabled"),
                 configuration.getStringList("material-list.materials"),
 
