@@ -6,6 +6,10 @@ customcrafting-item:
   enabled: true #If this is enabled, all items created by the custom crafting plugin by WolfyScript that are defined in the list will be kept on death.
   items:
     - "myitems:emerald_sword" #Seperate namespace and key with a ".".
+executable-items:
+  enabled: true #If this is enabled, all items created by the executable items plugin by Ssomar that are defined in the list will be kept on death.
+  items:
+    - "emerald_sword" #Use the id you entered when creating the item
 permission:
   enabled: false
   value: "keepitems.use"

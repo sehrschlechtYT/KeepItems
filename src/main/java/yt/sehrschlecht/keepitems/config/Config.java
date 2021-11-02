@@ -17,14 +17,20 @@ public class Config {
 
     private final boolean customCraftingItemsEnabled;
     private final List<String> customCraftingItems;
+
+    private final boolean executableItemsEnabled;
+    private final List<String> executableItemsItems;
+
     private final boolean permissionEnabled;
     private final String permissionValue;
 
-    public Config(boolean materialListEnabled, List<String> materials, boolean nbtEnabled, List<String> customCraftingItems, boolean permissionEnabled, String permissionValue) {
+    public Config(boolean materialListEnabled, List<String> materials, boolean nbtEnabled, List<String> customCraftingItems, boolean executableItemsEnabled, List<String> executableItemsItems, boolean permissionEnabled, String permissionValue) {
         this.materialListEnabled = materialListEnabled;
         this.materials = materials;
         this.customCraftingItemsEnabled = nbtEnabled;
         this.customCraftingItems = customCraftingItems;
+        this.executableItemsEnabled = executableItemsEnabled;
+        this.executableItemsItems = executableItemsItems;
         this.permissionEnabled = permissionEnabled;
         this.permissionValue = permissionValue;
         config = this;
@@ -46,6 +52,8 @@ public class Config {
                 configuration.getBoolean("customcrafting-item.enabled"),
                 configuration.getStringList("customcrafting-item.items"),
 
+                configuration.getBoolean("executable-items.enabled"),
+                configuration.getStringList("executable-items.items"),
                 configuration.getBoolean("permission.enabled"),
                 configuration.getString("permission.value"));
     }
@@ -71,6 +79,14 @@ public class Config {
 
     public List<String> getCustomCraftingItems() {
         return customCraftingItems;
+    }
+
+    public boolean isExecutableItemsEnabled() {
+        return executableItemsEnabled;
+    }
+
+    public List<String> getExecutableItemsItems() {
+        return executableItemsItems;
     }
 
     public boolean isPermissionEnabled() {

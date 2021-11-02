@@ -38,6 +38,17 @@ public class DeathListener implements Listener {
                     }
                 }
             }
+            if(config.isExecutableItemsEnabled()) {
+                PersistentDataContainer dataContainer = item.getItemMeta().getPersistentDataContainer();
+                for (String id : Config.getInstance().getExecutableItemsItems()) {
+                    if(isEIItem(dataContainer, id)) {
+                        event.getItemsToKeep().add(item);
+                        iterator.remove();
+                        kept = true;
+                        break;
+                    }
+                }
+            }
             if(config.isMaterialListEnabled() && !kept) {
                 if(config.getMaterials().contains(item.getType())) {
                     event.getItemsToKeep().add(item);
@@ -56,6 +67,15 @@ public class DeathListener implements Listener {
             if(namespace.equals(splitItemID[0]) && key.equals(splitItemID[1])) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    private static boolean isEIItem(PersistentDataContainer dataContainer, String id) {
+        NamespacedKey namespacedKey = new NamespacedKey("executableitems", "ei-id");
+        if(dataContainer.has(namespacedKey, PersistentDataType.STRING)) {
+            String itemId = dataContainer.get(namespacedKey, PersistentDataType.STRING);
+            return itemId.equalsIgnoreCase(id);
         }
         return false;
     }
