@@ -6,12 +6,12 @@
 
     <groupId>yt.sehrschlecht</groupId>
     <artifactId>keepitems</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>KeepItems</name>
 
-    <description>Does not drop various items upon death.</description>
+    <description>Keeps various items in the inventory upon death.</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
