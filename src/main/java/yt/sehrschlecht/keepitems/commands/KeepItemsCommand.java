@@ -24,7 +24,7 @@ public class KeepItemsCommand implements CommandExecutor, TabExecutor {
             return true;
         }
         sender.sendMessage(KeepItems.getPrefix() + "Usage: /keepitems §breload");
-        return true;
+        return false;
     }
 
     @Override
