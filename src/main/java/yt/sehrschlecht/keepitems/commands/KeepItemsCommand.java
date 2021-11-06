@@ -18,13 +18,17 @@ import java.util.stream.Stream;
 public class KeepItemsCommand implements CommandExecutor, TabExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+            if (!(sender instanceof Player)) {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + " U camt use commands in console!");
+            return false;
+        }
         if(args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             Config.reload();
             sender.sendMessage(KeepItems.getPrefix() + "§aConfig was reloaded successfully!");
             return true;
         }
         sender.sendMessage(KeepItems.getPrefix() + "Usage: /keepitems §breload");
-        return false;
+        return true;
     }
 
     @Override
