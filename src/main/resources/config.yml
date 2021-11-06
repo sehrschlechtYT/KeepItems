@@ -2,6 +2,11 @@ material-list:
   enabled: false #If the material list is enabled, only items that are in this list will be kept on death.
   materials: #List of Materials: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
     - BUNDLE
+customname-list:
+  enabled: false #If the customname list is enabled, only items with the custom names in this list will be kept on death.
+  check-contains: true #If this is enabled, the plugin will check if the custom name of an item contains the specified name.
+  names:
+    - "&aEmerald sword"
 customcrafting-item:
   enabled: true #If this is enabled, all items created by the custom crafting plugin by WolfyScript that are defined in the list will be kept on death.
   items:

@@ -15,6 +15,10 @@ public class Config {
     private final boolean materialListEnabled;
     private final List<String> materials;
 
+    private final boolean customNameListEnabled;
+    private final boolean customNameCheckContains;
+    private final List<String> customNames;
+
     private final boolean customCraftingItemsEnabled;
     private final List<String> customCraftingItems;
 
@@ -24,9 +28,12 @@ public class Config {
     private final boolean permissionEnabled;
     private final String permissionValue;
 
-    public Config(boolean materialListEnabled, List<String> materials, boolean nbtEnabled, List<String> customCraftingItems, boolean executableItemsEnabled, List<String> executableItemsItems, boolean permissionEnabled, String permissionValue) {
+    public Config(boolean materialListEnabled, List<String> materials, boolean customNameListEnabled, boolean customNameCheckContains, List<String> customNames, boolean nbtEnabled, List<String> customCraftingItems, boolean executableItemsEnabled, List<String> executableItemsItems, boolean permissionEnabled, String permissionValue) {
         this.materialListEnabled = materialListEnabled;
         this.materials = materials;
+        this.customNameListEnabled = customNameListEnabled;
+        this.customNameCheckContains = customNameCheckContains;
+        this.customNames = customNames;
         this.customCraftingItemsEnabled = nbtEnabled;
         this.customCraftingItems = customCraftingItems;
         this.executableItemsEnabled = executableItemsEnabled;
@@ -48,6 +55,10 @@ public class Config {
         config = new Config(
                 configuration.getBoolean("material-list.enabled"),
                 configuration.getStringList("material-list.materials"),
+
+                configuration.getBoolean("customname-list.enabled"),
+                configuration.getBoolean("customname-list.check-contains"),
+                configuration.getStringList("customname-list.names"),
 
                 configuration.getBoolean("customcrafting-item.enabled"),
                 configuration.getStringList("customcrafting-item.items"),
@@ -71,6 +82,18 @@ public class Config {
                 return null;
             }
         }).collect(Collectors.toList());
+    }
+
+    public boolean isCustomNameListEnabled() {
+        return customNameListEnabled;
+    }
+
+    public boolean customNameShouldCheckContains() {
+        return customNameCheckContains;
+    }
+
+    public List<String> getCustomNames() {
+        return customNames.stream().map(s -> s.replace("&", "§")).collect(Collectors.toList());
     }
 
     public boolean isCustomCraftingItemsEnabled() {

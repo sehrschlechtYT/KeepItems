@@ -55,6 +55,21 @@ public class DeathListener implements Listener {
                     iterator.remove();
                 }
             }
+            if(config.isCustomNameListEnabled() && !kept) {
+                for (String customName : config.getCustomNames()) {
+                    if(config.customNameShouldCheckContains()) {
+                        if(item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().contains(customName)) {
+                            event.getItemsToKeep().add(item);
+                            iterator.remove();
+                            break;
+                        }
+                    } else if (item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals(customName)) {
+                        event.getItemsToKeep().add(item);
+                        iterator.remove();
+                        break;
+                    }
+                }
+            }
         }
     }
 
