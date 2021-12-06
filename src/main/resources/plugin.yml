@@ -1,7 +1,7 @@
 name: KeepItems
 version: '${project.version}'
 main: yt.sehrschlecht.keepitems.KeepItems
-api-version: 1.17
+api-version: 1.14
 authors: [ sehrschlechtYT ]
 description: Keeps various items in the inventory upon death.
 commands:
