@@ -1,20 +1,29 @@
-material-list:
-  enabled: false #If the material list is enabled, only items that are in this list will be kept on death.
-  materials: #List of Materials: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
-    - BUNDLE
-customname-list:
-  enabled: false #If the customname list is enabled, only items with the custom names in this list will be kept on death.
-  check-contains: true #If this is enabled, the plugin will check if the custom name of an item contains the specified name.
-  names:
-    - "&aEmerald sword"
-customcrafting-item:
-  enabled: true #If this is enabled, all items created by the custom crafting plugin by WolfyScript that are defined in the list will be kept on death.
-  items:
-    - "myitems:emerald_sword" #Seperate namespace and key with a ".".
-executable-items:
-  enabled: true #If this is enabled, all items created by the executable items plugin by Ssomar that are defined in the list will be kept on death.
-  items:
-    - "emerald_sword" #Use the id you entered when creating the item
+filter:
+  material:
+    enabled: false #If the material list is enabled, only items that are in this list will be kept on death.
+    materials: #List of Materials: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+      - BUNDLE
+  custom-name:
+    enabled: false #If the customname list is enabled, only items with the custom names in this list will be kept on death.
+    check-contains: true #If this is enabled, the plugin will check if the custom name of an item contains the specified name.
+    names:
+      - "&aEmerald sword"
+  #Filters that support external plugins:
+  custom-crafting:
+    enabled: false #If this is enabled, all items created by the custom crafting plugin by WolfyScript that are defined in the list will be kept on death.
+    items:
+      - "myitems:emerald_sword" #Seperate namespace and key with a ".".
+  executable-items:
+    enabled: false #If this is enabled, all items created by the executable items plugin by Ssomar that are defined in the list will be kept on death.
+    items:
+      - "emerald_sword" #Use the id you entered when creating the item
 permission:
   enabled: false
   value: "keepitems.use"
+
+# Debugging - If you want to see information about the filters in the console, set this to true.
+# Do not use this on a production server as it will spam the console.
+debug: false
+# The following config setting is only needed if you are making changes to the config.yml file or the Config class of the KeepItems plugin.
+# It will also spam the console.
+# debug-config: false

@@ -20,10 +20,10 @@ public class KeepItemsCommand implements CommandExecutor, TabExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             Config.reload();
-            sender.sendMessage(KeepItems.getPrefix() + "§aConfig was reloaded successfully!");
+            sender.sendMessage(KeepItems.getPrefix() + "You've §asuccessfully reloaded the config§7!");
             return true;
         }
-        sender.sendMessage(KeepItems.getPrefix() + "Usage: /keepitems §breload");
+        sender.sendMessage(KeepItems.getPrefix() + "§7Usage: §c/keepitems reload");
         return true;
     }
 
