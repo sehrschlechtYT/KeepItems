@@ -15,7 +15,7 @@ filter:
   custom-crafting:
     enabled: false #If this is enabled, all items created by the custom crafting plugin by WolfyScript that are defined in the list will be kept on death.
     items:
-      - "myitems:emerald_sword" #Seperate namespace and key with a ".".
+      - "myitems:emerald_sword" #Seperate folder and key with a ".".
   executable-items:
     enabled: false #If this is enabled, all items created by the executable items plugin by Ssomar that are defined in the list will be kept on death.
     items:
