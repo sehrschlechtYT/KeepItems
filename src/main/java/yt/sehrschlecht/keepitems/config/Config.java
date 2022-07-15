@@ -1,82 +1,99 @@
 package yt.sehrschlecht.keepitems.config;
 
+import dev.dejvokep.boostedyaml.YamlDocument;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
 import yt.sehrschlecht.keepitems.KeepItems;
+import yt.sehrschlecht.keepitems.utils.Debug;
 
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class Config {
     private static Config config = null;
 
-    private final boolean materialListEnabled;
-    private final List<String> materials;
+    @ConfigOption(key = "filter.material.enabled", type = Boolean.class)
+    public boolean materialFilterEnabled;
+    @ConfigOption(key = "filter.material.materials", type = List.class)
+    public List<String> materials;
 
-    private final boolean customNameListEnabled;
-    private final boolean customNameCheckContains;
-    private final List<String> customNames;
+    @ConfigOption(key = "filter.custom-name.enabled", type = Boolean.class)
+    public boolean customNameFilterEnabled;
+    @ConfigOption(key = "filter.custom-name.check-contains", type = Boolean.class)
+    public boolean customNameCheckContains;
+    @ConfigOption(key = "filter.custom-name.names", type = List.class)
+    public List<String> customNames;
 
-    private final boolean customCraftingItemsEnabled;
-    private final List<String> customCraftingItems;
+    //ToDo somehow broken
+    @ConfigOption(key = "filter.custom-crafting.enabled", type = Boolean.class)
+    public boolean customCraftingFilterEnabled;
+    @ConfigOption(key = "filter.custom-crafting.items", type = List.class)
+    public List<String> customCraftingItems;
 
-    private final boolean executableItemsEnabled;
-    private final List<String> executableItemsItems;
+    @ConfigOption(key = "filter.executable-items.enabled", type = Boolean.class)
+    public boolean executableItemsFilterEnabled;
+    @ConfigOption(key = "filter.executable-items.items", type = List.class)
+    public List<String> executableItemsItems;
 
-    private final boolean permissionEnabled;
-    private final String permissionValue;
+    @ConfigOption(key = "permission.enabled", type = Boolean.class)
+    public boolean permissionEnabled;
+    @ConfigOption(key = "permission.value", type = String.class)
+    public String permissionValue;
 
-    public Config(boolean materialListEnabled, List<String> materials, boolean customNameListEnabled, boolean customNameCheckContains, List<String> customNames, boolean nbtEnabled, List<String> customCraftingItems, boolean executableItemsEnabled, List<String> executableItemsItems, boolean permissionEnabled, String permissionValue) {
-        this.materialListEnabled = materialListEnabled;
-        this.materials = materials;
-        this.customNameListEnabled = customNameListEnabled;
-        this.customNameCheckContains = customNameCheckContains;
-        this.customNames = customNames;
-        this.customCraftingItemsEnabled = nbtEnabled;
-        this.customCraftingItems = customCraftingItems;
-        this.executableItemsEnabled = executableItemsEnabled;
-        this.executableItemsItems = executableItemsItems;
-        this.permissionEnabled = permissionEnabled;
-        this.permissionValue = permissionValue;
+    public Config(YamlDocument configuration) {
         config = this;
+
+        Debug.CONFIG.debug("Creating config...");
+
+        for (Field field : config.getClass().getFields()) {
+            if(field.isAnnotationPresent(ConfigOption.class)) {
+                ConfigOption annotation = field.getAnnotation(ConfigOption.class);
+                String key = annotation.key();
+                Class<?> type = annotation.type();
+                Debug.CONFIG.debug("Config: Found annotation for field " + field.getName() + " with key " + key + " and type " + type.getName());
+                try {
+                    Object object = configuration.get(key, type);
+                    Debug.CONFIG.debug("Config: " + field.getName() + " -> " + object);
+                    if(!type.isInstance(object)) {
+                        KeepItems.getPlugin().getLogger().log(Level.SEVERE, "Config option " + key + " is not of type " + type.getName() + "!");
+                        continue;
+                    }
+                    field.set(config, object);
+                } catch (Exception e) {
+                    KeepItems.getPlugin().getLogger().log(Level.SEVERE, "Could not set config value for key " + key + " to type " + type.getName() + ": " + e.getMessage());
+                }
+            }
+        }
     }
 
     public static Config getInstance() {
         if(config == null) {
-            reload();
+            reload(KeepItems.getConfiguration());
         }
         return config;
     }
 
-    public static void reload() {
-        FileConfiguration configuration = KeepItems.getPlugin().getConfig();
-        config = new Config(
-                configuration.getBoolean("material-list.enabled"),
-                configuration.getStringList("material-list.materials"),
-
-                configuration.getBoolean("customname-list.enabled"),
-                configuration.getBoolean("customname-list.check-contains"),
-                configuration.getStringList("customname-list.names"),
-
-                configuration.getBoolean("customcrafting-item.enabled"),
-                configuration.getStringList("customcrafting-item.items"),
-
-                configuration.getBoolean("executable-items.enabled"),
-                configuration.getStringList("executable-items.items"),
-                configuration.getBoolean("permission.enabled"),
-                configuration.getString("permission.value"));
+    public static void reload(YamlDocument configuration) {
+        try {
+            configuration.reload();
+        } catch (IOException e) {
+            KeepItems.getPlugin().getLogger().log(Level.SEVERE, "Config: Could not reload configuration: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+        config = new Config(configuration);
     }
 
-    public boolean isMaterialListEnabled() {
-        return materialListEnabled;
+    public boolean isMaterialFilterEnabled() {
+        return materialFilterEnabled;
     }
 
     public List<Material> getMaterials() {
         return materials.stream().map(material -> {
             try {
-                return Material.valueOf(material.toUpperCase(Locale.ENGLISH));
+                return Material.valueOf(material.toUpperCase());
             } catch (Exception exception) {
                 KeepItems.getPlugin().getLogger().log(Level.SEVERE, "The specified material \"" + material + "\" is invalid!");
                 return null;
@@ -84,8 +101,8 @@ public class Config {
         }).collect(Collectors.toList());
     }
 
-    public boolean isCustomNameListEnabled() {
-        return customNameListEnabled;
+    public boolean isCustomNameFilterEnabled() {
+        return customNameFilterEnabled;
     }
 
     public boolean customNameShouldCheckContains() {
@@ -93,19 +110,19 @@ public class Config {
     }
 
     public List<String> getCustomNames() {
-        return customNames.stream().map(s -> s.replace("&", "§")).collect(Collectors.toList());
+        return customNames.stream().map(s -> ChatColor.translateAlternateColorCodes('&', s)).collect(Collectors.toList());
     }
 
-    public boolean isCustomCraftingItemsEnabled() {
-        return customCraftingItemsEnabled;
+    public boolean isCustomCraftingFilterEnabled() {
+        return customCraftingFilterEnabled;
     }
 
     public List<String> getCustomCraftingItems() {
         return customCraftingItems;
     }
 
-    public boolean isExecutableItemsEnabled() {
-        return executableItemsEnabled;
+    public boolean isExecutableItemsFilterEnabled() {
+        return executableItemsFilterEnabled;
     }
 
     public List<String> getExecutableItemsItems() {
