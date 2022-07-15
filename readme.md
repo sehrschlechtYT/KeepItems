@@ -1,4 +1,4 @@
-# KeepItems
+# KeepItems (1.14.4 - 1.19)
 ### Keeps various items in the inventory upon death
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/sehrschlechtYT/KeepItems/graphs/commit-activity)
