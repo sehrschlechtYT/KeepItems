@@ -12,9 +12,9 @@ import yt.sehrschlecht.keepitems.commands.KeepItemsCommand;
 import yt.sehrschlecht.keepitems.config.Config;
 import yt.sehrschlecht.keepitems.filters.FilterManager;
 import yt.sehrschlecht.keepitems.filters.external.CustomCraftingFilter;
-import yt.sehrschlecht.keepitems.filters.external.CustomNameFilter;
+import yt.sehrschlecht.keepitems.filters.CustomNameFilter;
 import yt.sehrschlecht.keepitems.filters.external.ExecutableItemsFilter;
-import yt.sehrschlecht.keepitems.filters.external.MaterialFilter;
+import yt.sehrschlecht.keepitems.filters.MaterialFilter;
 import yt.sehrschlecht.keepitems.listeners.DeathListener;
 
 import java.io.File;

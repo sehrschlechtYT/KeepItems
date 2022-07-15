@@ -1,4 +1,4 @@
-package yt.sehrschlecht.keepitems.filters.external;
+package yt.sehrschlecht.keepitems.filters;
 
 import org.bukkit.inventory.ItemStack;
 import yt.sehrschlecht.keepitems.config.Config;
