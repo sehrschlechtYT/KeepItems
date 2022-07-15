@@ -6,12 +6,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
+import yt.sehrschlecht.keepitems.KeepItems;
 import yt.sehrschlecht.keepitems.config.Config;
 import yt.sehrschlecht.keepitems.filters.FilterManager;
 import yt.sehrschlecht.keepitems.filters.ItemFilter;
 import yt.sehrschlecht.keepitems.utils.Debug;
 
 import java.util.*;
+import java.util.logging.Level;
 
 public class DeathListener implements Listener {
 
@@ -49,11 +51,16 @@ public class DeathListener implements Listener {
             for (ItemFilter filter : FilterManager.getInstance().getFilters()) {
                 Debug.FILTERS.debug("Checking filter: " + filter.getClass().getSimpleName() + (filter.isEnabled() ? " (enabled)" : " (disabled)"));
                 if(!filter.isEnabled()) continue;
-                if(filter.keepItem(item)) {
-                    Debug.FILTERS.debug("Item " + item.getType().name() + " is kept by filter " + filter.getClass().getSimpleName());
-                    iterator.remove();
-                    items.add(item);
-                    break;
+                try {
+                    if(filter.keepItem(item)) {
+                        Debug.FILTERS.debug("Item " + item.getType().name() + " is kept by filter " + filter.getClass().getSimpleName());
+                        iterator.remove();
+                        items.add(item);
+                        break;
+                    }
+                } catch (Exception e) {
+                    KeepItems.getPlugin().getLogger().log(Level.SEVERE, "Filter " + filter.getClass().getSimpleName() + " threw an exception:");
+                    e.printStackTrace();
                 }
             }
         }
