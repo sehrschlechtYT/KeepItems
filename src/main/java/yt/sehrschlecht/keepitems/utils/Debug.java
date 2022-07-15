@@ -17,7 +17,7 @@ public enum Debug {
     }
 
     public void debug(String message) {
-        if(KeepItems.getPlugin().getConfig().isSet(configKey) && KeepItems.getPlugin().getConfig().getBoolean(configKey)) {
+        if(KeepItems.getConfiguration().contains(configKey) && KeepItems.getConfiguration().getBoolean(configKey)) {
             KeepItems.getPlugin().getLogger().info("[Debug] " + message);
         }
     }

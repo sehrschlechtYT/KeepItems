@@ -72,5 +72,10 @@
             <artifactId>annotations</artifactId>
             <version>23.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>dev.dejvokep</groupId>
+            <artifactId>boosted-yaml</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
 </project>

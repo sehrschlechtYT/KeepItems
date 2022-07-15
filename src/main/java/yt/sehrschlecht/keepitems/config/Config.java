@@ -1,11 +1,12 @@
 package yt.sehrschlecht.keepitems.config;
 
+import dev.dejvokep.boostedyaml.YamlDocument;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
 import yt.sehrschlecht.keepitems.KeepItems;
 import yt.sehrschlecht.keepitems.utils.Debug;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.logging.Level;
@@ -42,7 +43,7 @@ public class Config {
     @ConfigOption(key = "permission.value", type = String.class)
     public String permissionValue;
 
-    public Config(FileConfiguration configuration) {
+    public Config(YamlDocument configuration) {
         config = this;
 
         Debug.CONFIG.debug("Creating config...");
@@ -70,13 +71,18 @@ public class Config {
 
     public static Config getInstance() {
         if(config == null) {
-            reload();
+            reload(KeepItems.getConfiguration());
         }
         return config;
     }
 
-    public static void reload() {
-        FileConfiguration configuration = KeepItems.getPlugin().getConfig();
+    public static void reload(YamlDocument configuration) {
+        try {
+            configuration.reload();
+        } catch (IOException e) {
+            KeepItems.getPlugin().getLogger().log(Level.SEVERE, "Config: Could not reload configuration: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
         config = new Config(configuration);
     }
 
