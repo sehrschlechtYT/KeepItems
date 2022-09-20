@@ -2,8 +2,9 @@
 ### Keeps various items in the inventory upon player death
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/sehrschlechtYT/KeepItems/graphs/commit-activity)
-[![](https://dcbadge.vercel.app/api/server/crHgFwH2Gt?stype=flat)](https://discord.gg/crHgFwH2Gt)
-![](https://dcbadge.vercel.app/api/shield/450685365876162573?style=flat)
+
+[![](https://dcbadge.vercel.app/api/server/crHgFwH2Gt)](https://discord.gg/crHgFwH2Gt)
+![](https://dcbadge.vercel.app/api/shield/450685365876162573)
 
 ## Config
 The config should be self explanatory. If you have a question, you can open a ticket on my discord server or add me on Discord (sehrschlecht#2929).
