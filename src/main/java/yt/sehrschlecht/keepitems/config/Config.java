@@ -81,7 +81,6 @@ public class Config {
             configuration.reload();
         } catch (IOException e) {
             KeepItems.getPlugin().getLogger().log(Level.SEVERE, "Config: Could not reload configuration: " + e.getMessage());
-            throw new RuntimeException(e);
         }
         config = new Config(configuration);
     }

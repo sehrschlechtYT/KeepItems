@@ -22,8 +22,9 @@ public class DeathListener implements Listener {
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
+        Debug.FILTERS.debug("Player " + player.getName() + " respawned.");
         if(itemsToKeep.containsKey(player.getUniqueId())) {
-            Debug.FILTERS.debug("Player " + player.getName() + " respawned. " + itemsToKeep.get(player.getUniqueId()).size() + " items to keep.");
+            Debug.FILTERS.debug(itemsToKeep.get(player.getUniqueId()).size() + " items to keep.");
             for (ItemStack itemStack : itemsToKeep.get(player.getUniqueId())) {
                 Debug.FILTERS.debug("Adding " + itemStack.getType() + " to " + player.getName());
                 player.getInventory().addItem(itemStack);
