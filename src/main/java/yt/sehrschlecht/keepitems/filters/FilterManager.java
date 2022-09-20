@@ -41,6 +41,8 @@ public class FilterManager {
 
     /**
      * @return An instance of the filter manager.
+     * Can be null if the keep items plugin hasn't been initialized yet.
+     * You can prevent NullPointerExceptions by adding KeepItems as a dependency in your plugin.yml file.
      */
     @Nullable
     public static FilterManager getInstance() {
