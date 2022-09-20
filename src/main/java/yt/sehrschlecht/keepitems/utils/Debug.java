@@ -16,9 +16,10 @@ public enum Debug {
         this.configKey = configKey;
     }
 
-    public void debug(String message) {
+    public void send(String message) {
         if(KeepItems.getConfiguration().contains(configKey) && KeepItems.getConfiguration().getBoolean(configKey)) {
             KeepItems.getPlugin().getLogger().info("[Debug] " + message);
         }
     }
+
 }

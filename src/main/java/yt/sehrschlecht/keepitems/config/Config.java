@@ -46,17 +46,17 @@ public class Config {
     public Config(YamlDocument configuration) {
         config = this;
 
-        Debug.CONFIG.debug("Creating config...");
+        Debug.CONFIG.send("Creating config...");
 
         for (Field field : config.getClass().getFields()) {
             if(field.isAnnotationPresent(ConfigOption.class)) {
                 ConfigOption annotation = field.getAnnotation(ConfigOption.class);
                 String key = annotation.key();
                 Class<?> type = annotation.type();
-                Debug.CONFIG.debug("Config: Found annotation for field " + field.getName() + " with key " + key + " and type " + type.getName());
+                Debug.CONFIG.send("Config: Found annotation for field " + field.getName() + " with key " + key + " and type " + type.getName());
                 try {
                     Object object = configuration.get(key, type);
-                    Debug.CONFIG.debug("Config: " + field.getName() + " -> " + object);
+                    Debug.CONFIG.send("Config: " + field.getName() + " -> " + object);
                     if(!type.isInstance(object)) {
                         KeepItems.getPlugin().getLogger().log(Level.SEVERE, "Config option " + key + " is not of type " + type.getName() + "!");
                         continue;

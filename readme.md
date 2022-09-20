@@ -1,5 +1,5 @@
 # KeepItems (1.14.4 - 1.19)
-### Keeps various items in the inventory upon death
+### Keeps various items in the inventory upon player death
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/sehrschlechtYT/KeepItems/graphs/commit-activity)
 [![](https://dcbadge.vercel.app/api/server/crHgFwH2Gt?stype=flat)](https://discord.gg/crHgFwH2Gt)
