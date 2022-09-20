@@ -5,15 +5,18 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import yt.sehrschlecht.keepitems.KeepItems;
 import yt.sehrschlecht.keepitems.utils.Debug;
+import yt.sehrschlecht.schlechteutils.config.AbstractConfig;
+import yt.sehrschlecht.schlechteutils.config.ConfigOption;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-public class Config {
-    private static Config config = null;
+public class Config extends AbstractConfig {
+
+    private static Config instance = null;
+
 
     @ConfigOption(key = "filter.material.enabled", type = Boolean.class)
     public boolean materialFilterEnabled;
@@ -46,41 +49,11 @@ public class Config {
     @ConfigOption(key = "clear-items", type = Boolean.class)
     public boolean clearItems;
 
-    public Config(YamlDocument document) {
-        config = this;
-
-        Debug.CONFIG.send("Loading config fields...");
-
-        loadFields(document);
-    }
-
-    private void loadFields(YamlDocument document) {
-        for (Field field : config.getClass().getFields()) {
-            if(field.isAnnotationPresent(ConfigOption.class)) {
-                ConfigOption annotation = field.getAnnotation(ConfigOption.class);
-                String key = annotation.key();
-                Class<?> type = annotation.type();
-                Debug.CONFIG.send("Config: Found annotation for field " + field.getName() + " with key " + key + " and type " + type.getName());
-                try {
-                    Object object = document.get(key, type);
-                    Debug.CONFIG.send("Config: " + field.getName() + " -> " + object);
-                    if(!type.isInstance(object)) {
-                        KeepItems.getPlugin().getLogger().log(Level.SEVERE, "Config option " + key + " is not of type " + type.getName() + "!");
-                        continue;
-                    }
-                    field.set(config, object);
-                } catch (Exception e) {
-                    KeepItems.getPlugin().getLogger().log(Level.SEVERE, "Could not set config value for key " + key + " to type " + type.getName() + ": " + e.getMessage());
-                }
-            }
-        }
-    }
-
-    public static Config getInstance() {
-        if(config == null) {
-            reload(KeepItems.getConfiguration());
-        }
-        return config;
+    public Config(YamlDocument configDocument) {
+        super(configDocument);
+        instance = this;
+        reload(configDocument);
+        Debug.CONFIG.send("Loaded config");
     }
 
     public static void reload(YamlDocument configuration) {
@@ -89,11 +62,7 @@ public class Config {
         } catch (IOException e) {
             KeepItems.getPlugin().getLogger().log(Level.SEVERE, "Config: Could not reload configuration: " + e.getMessage());
         }
-        config = new Config(configuration);
-    }
-
-    public boolean isMaterialFilterEnabled() {
-        return materialFilterEnabled;
+        new Config(configuration);
     }
 
     public List<Material> getMaterials() {
@@ -107,44 +76,12 @@ public class Config {
         }).collect(Collectors.toList());
     }
 
-    public boolean isCustomNameFilterEnabled() {
-        return customNameFilterEnabled;
-    }
-
-    public boolean customNameShouldCheckContains() {
-        return customNameCheckContains;
-    }
-
     public List<String> getCustomNames() {
         return customNames.stream().map(s -> ChatColor.translateAlternateColorCodes('&', s)).collect(Collectors.toList());
     }
 
-    public boolean isCustomCraftingFilterEnabled() {
-        return customCraftingFilterEnabled;
-    }
-
-    public List<String> getCustomCraftingItems() {
-        return customCraftingItems;
-    }
-
-    public boolean isExecutableItemsFilterEnabled() {
-        return executableItemsFilterEnabled;
-    }
-
-    public List<String> getExecutableItemsItems() {
-        return executableItemsItems;
-    }
-
-    public boolean isPermissionEnabled() {
-        return permissionEnabled;
-    }
-
-    public String getPermissionValue() {
-        return permissionValue;
-    }
-
-    public boolean shouldClearItems() {
-        return clearItems;
+    public static Config getInstance() {
+        return instance;
     }
 
 }

@@ -40,7 +40,7 @@ public class DeathListener implements Listener {
         Debug.FILTERS.send(player.getName() + " died! Amount of drops: " + drops.size());
         if(drops.isEmpty()) return;
         Config config = Config.getInstance();
-        if(config.isPermissionEnabled() && !player.hasPermission(config.getPermissionValue())) return;
+        if(config.permissionEnabled && !player.hasPermission(config.permissionValue)) return;
 
         List<ItemStack> items = new ArrayList<>();
         Debug.FILTERS.send("Created list of items");
@@ -69,7 +69,7 @@ public class DeathListener implements Listener {
 
         itemsToKeep.remove(player.getUniqueId());
         if(!items.isEmpty()) {
-            if(config.shouldClearItems()) {
+            if(config.clearItems) {
                 Debug.FILTERS.send("Items won't be added to the map as clear-items is enabled.");
                 return;
             }

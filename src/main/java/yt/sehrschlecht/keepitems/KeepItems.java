@@ -29,7 +29,7 @@ public final class KeepItems extends JavaPlugin {
     public void onEnable() {
         plugin = this;
 
-        registerConfig();
+        createConfig();
         registerCommands();
         registerListeners();
         registerFilters();
@@ -40,7 +40,7 @@ public final class KeepItems extends JavaPlugin {
 
     }
 
-    private void registerConfig() {
+    private void createConfig() {
         try {
             configuration = YamlDocument.create(
                     new File(getDataFolder(), "config.yml"),
@@ -55,7 +55,7 @@ public final class KeepItems extends JavaPlugin {
             e.printStackTrace();
         }
 
-        Config.reload(configuration);
+        new Config(configuration);
     }
 
     @SuppressWarnings("ConstantConditions")

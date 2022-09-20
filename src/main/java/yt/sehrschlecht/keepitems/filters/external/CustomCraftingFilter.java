@@ -16,7 +16,7 @@ public class CustomCraftingFilter extends ItemFilter {
 
     @Override
     public boolean isEnabled() {
-        return Config.getInstance().isCustomCraftingFilterEnabled();
+        return Config.getInstance().customCraftingFilterEnabled;
     }
 
     public boolean isCCItem(PersistentDataContainer dataContainer, String namespace, String key) {
@@ -38,7 +38,7 @@ public class CustomCraftingFilter extends ItemFilter {
     public boolean shouldKeepItem(@NotNull ItemStack item) {
         if(!item.hasItemMeta()) return false;
         PersistentDataContainer dataContainer = item.getItemMeta().getPersistentDataContainer();
-        for (String stringItem : Config.getInstance().getCustomCraftingItems()) {
+        for (String stringItem : Config.getInstance().customCraftingItems) {
             String[] split = stringItem.split(":");
             if(split.length != 2) continue;
             String namespace = split[0];

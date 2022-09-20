@@ -12,7 +12,7 @@ public class MaterialFilter extends ItemFilter {
 
     @Override
     public boolean isEnabled() {
-        return Config.getInstance().isMaterialFilterEnabled();
+        return Config.getInstance().materialFilterEnabled;
     }
 
     @Override

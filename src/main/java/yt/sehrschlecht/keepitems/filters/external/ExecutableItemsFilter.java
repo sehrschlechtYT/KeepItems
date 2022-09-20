@@ -16,7 +16,7 @@ public class ExecutableItemsFilter extends ItemFilter {
 
     @Override
     public boolean isEnabled() {
-        return Config.getInstance().isExecutableItemsFilterEnabled();
+        return Config.getInstance().executableItemsFilterEnabled;
     }
 
     private boolean isEIItem(PersistentDataContainer dataContainer, String id) {
@@ -33,7 +33,7 @@ public class ExecutableItemsFilter extends ItemFilter {
     public boolean shouldKeepItem(@NotNull ItemStack item) {
         if(!item.hasItemMeta()) return false;
         PersistentDataContainer dataContainer = item.getItemMeta().getPersistentDataContainer();
-        for (String id : Config.getInstance().getExecutableItemsItems()) {
+        for (String id : Config.getInstance().executableItemsItems) {
             if(isEIItem(dataContainer, id)) {
                 return true;
             }

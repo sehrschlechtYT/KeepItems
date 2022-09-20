@@ -12,7 +12,7 @@ public class CustomNameFilter extends ItemFilter {
 
     @Override
     public boolean isEnabled() {
-        return Config.getInstance().isCustomNameFilterEnabled();
+        return Config.getInstance().customNameFilterEnabled;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class CustomNameFilter extends ItemFilter {
         if(!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) return false;
         Config config = Config.getInstance();
         for (String customName : config.getCustomNames()) {
-            if(config.customNameShouldCheckContains()) {
+            if(config.customNameCheckContains) {
                 if(item.getItemMeta().getDisplayName().contains(customName)) {
                     return true;
                 }
