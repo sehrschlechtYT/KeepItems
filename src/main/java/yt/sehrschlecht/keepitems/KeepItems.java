@@ -10,15 +10,16 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import yt.sehrschlecht.keepitems.commands.KeepItemsCommand;
 import yt.sehrschlecht.keepitems.config.Config;
-import yt.sehrschlecht.keepitems.filters.FilterManager;
-import yt.sehrschlecht.keepitems.filters.external.CustomCraftingFilter;
 import yt.sehrschlecht.keepitems.filters.CustomNameFilter;
-import yt.sehrschlecht.keepitems.filters.external.ExecutableItemsFilter;
+import yt.sehrschlecht.keepitems.filters.FilterManager;
 import yt.sehrschlecht.keepitems.filters.MaterialFilter;
+import yt.sehrschlecht.keepitems.filters.external.CustomCraftingFilter;
+import yt.sehrschlecht.keepitems.filters.external.ExecutableItemsFilter;
 import yt.sehrschlecht.keepitems.listeners.DeathListener;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public final class KeepItems extends JavaPlugin {
     private static KeepItems plugin;
@@ -28,10 +29,22 @@ public final class KeepItems extends JavaPlugin {
     public void onEnable() {
         plugin = this;
 
+        registerConfig();
+        registerCommands();
+        registerListeners();
+        registerFilters();
+    }
+
+    @Override
+    public void onDisable() {
+
+    }
+
+    private void registerConfig() {
         try {
             configuration = YamlDocument.create(
                     new File(getDataFolder(), "config.yml"),
-                    getResource("config.yml"),
+                    Objects.requireNonNull(getResource("config.yml")),
                     GeneralSettings.DEFAULT,
                     LoaderSettings.builder().setAutoUpdate(true).build(),
                     DumperSettings.DEFAULT,
@@ -43,13 +56,20 @@ public final class KeepItems extends JavaPlugin {
         }
 
         Config.reload(configuration);
+    }
 
+    @SuppressWarnings("ConstantConditions")
+    private void registerCommands() {
         getCommand("keepitems").setExecutor(new KeepItemsCommand());
         getCommand("keepitems").setTabCompleter(new KeepItemsCommand());
+    }
 
+    private void registerListeners() {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new DeathListener(), this);
+    }
 
+    private void registerFilters() {
         FilterManager filterManager = new FilterManager();
         filterManager.registerFilters(
                 new MaterialFilter(),
@@ -57,11 +77,6 @@ public final class KeepItems extends JavaPlugin {
                 new CustomCraftingFilter(),
                 new ExecutableItemsFilter()
         );
-    }
-
-    @Override
-    public void onDisable() {
-
     }
 
     public static KeepItems getPlugin() {

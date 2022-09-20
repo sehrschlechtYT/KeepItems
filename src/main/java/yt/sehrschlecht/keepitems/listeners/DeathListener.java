@@ -53,7 +53,7 @@ public class DeathListener implements Listener {
                 Debug.FILTERS.debug("Checking filter: " + filter.getClass().getSimpleName() + (filter.isEnabled() ? " (enabled)" : " (disabled)"));
                 if(!filter.isEnabled()) continue;
                 try {
-                    if(filter.keepItem(item)) {
+                    if(filter.shouldKeepItem(item)) {
                         Debug.FILTERS.debug("Item " + item.getType().name() + " is kept by filter " + filter.getClass().getSimpleName());
                         iterator.remove();
                         items.add(item);

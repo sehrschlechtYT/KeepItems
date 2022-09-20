@@ -18,10 +18,10 @@ public abstract class ItemFilter {
     public abstract boolean isEnabled();
 
     /**
-     * In this method, you should check if an item is allowed to be kept.
-     * @param item the item to check
-     * @return true if the item should be kept, false if it should be dropped
+     * Checks if an item stack should be kept by the filter or not.
+     * @param item the item stack to check
+     * @return true if the item should be removed from the player drops, false if it should be dropped
      */
-    public abstract boolean keepItem(@NotNull ItemStack item);
+    public abstract boolean shouldKeepItem(@NotNull ItemStack item);
 
 }
