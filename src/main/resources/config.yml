@@ -1,5 +1,5 @@
 # Do NOT edit this!
-config-version: 1
+config-version: 2
 
 filter:
   material:
@@ -23,6 +23,9 @@ filter:
 permission:
   enabled: false
   value: "keepitems.use"
+
+# If this is enabled, items will be cleared instead of kept on player death.
+clear-items: false
 
 # Debugging - If you want to see information about the filters in the console, set this to true.
 # Do not use this on a production server as it will spam the console.

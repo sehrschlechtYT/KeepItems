@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
  * @author sehrschlechtYT | https://github.com/sehrschlechtYT
  * @since 2.0
  *
- * An item filter is used to determine if an item should be kept on death or not.
+ * An item filter is used to determine if an item should be kept/cleared on death or not.
  */
 public abstract class ItemFilter {
 
@@ -20,7 +20,7 @@ public abstract class ItemFilter {
     /**
      * Checks if an item stack should be kept by the filter or not.
      * @param item the item stack to check
-     * @return true if the item should be removed from the player drops, false if it should be dropped
+     * @return true if the item should be kept/removed in/from the inventory (depending on the plugin config) from the player drops, false if it should be dropped
      */
     public abstract boolean shouldKeepItem(@NotNull ItemStack item);
 

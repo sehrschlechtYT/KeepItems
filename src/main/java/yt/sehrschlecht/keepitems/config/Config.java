@@ -43,11 +43,18 @@ public class Config {
     @ConfigOption(key = "permission.value", type = String.class)
     public String permissionValue;
 
-    public Config(YamlDocument configuration) {
+    @ConfigOption(key = "clear-items", type = Boolean.class)
+    public boolean clearItems;
+
+    public Config(YamlDocument document) {
         config = this;
 
-        Debug.CONFIG.send("Creating config...");
+        Debug.CONFIG.send("Loading config fields...");
 
+        loadFields(document);
+    }
+
+    private void loadFields(YamlDocument document) {
         for (Field field : config.getClass().getFields()) {
             if(field.isAnnotationPresent(ConfigOption.class)) {
                 ConfigOption annotation = field.getAnnotation(ConfigOption.class);
@@ -55,7 +62,7 @@ public class Config {
                 Class<?> type = annotation.type();
                 Debug.CONFIG.send("Config: Found annotation for field " + field.getName() + " with key " + key + " and type " + type.getName());
                 try {
-                    Object object = configuration.get(key, type);
+                    Object object = document.get(key, type);
                     Debug.CONFIG.send("Config: " + field.getName() + " -> " + object);
                     if(!type.isInstance(object)) {
                         KeepItems.getPlugin().getLogger().log(Level.SEVERE, "Config option " + key + " is not of type " + type.getName() + "!");
@@ -135,4 +142,9 @@ public class Config {
     public String getPermissionValue() {
         return permissionValue;
     }
+
+    public boolean shouldClearItems() {
+        return clearItems;
+    }
+
 }

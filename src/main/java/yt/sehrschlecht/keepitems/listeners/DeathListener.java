@@ -33,7 +33,6 @@ public class DeathListener implements Listener {
         itemsToKeep.remove(player.getUniqueId());
     }
 
-
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
@@ -70,6 +69,10 @@ public class DeathListener implements Listener {
 
         itemsToKeep.remove(player.getUniqueId());
         if(!items.isEmpty()) {
+            if(config.shouldClearItems()) {
+                Debug.FILTERS.send("Items won't be added to the map as clear-items is enabled.");
+                return;
+            }
             Debug.FILTERS.send("Adding items to map");
             itemsToKeep.put(player.getUniqueId(), items);
         }
