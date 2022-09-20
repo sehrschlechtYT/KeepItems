@@ -12,30 +12,34 @@ The config should be self explanatory. If you have a question, you can open a ti
 
 ```
 # Do NOT edit this!
-config-version: 1
+# Do NOT edit this!
+config-version: 2
 
 filter:
-material:
-enabled: false #If the material list is enabled, only items that are in this list will be kept on death.
-materials: #List of Materials: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
-- BUNDLE
-custom-name:
-enabled: false #If the customname list is enabled, only items with the custom names in this list will be kept on death.
-check-contains: true #If this is enabled, the plugin will check if the custom name of an item contains the specified name.
-names:
-- "&aEmerald sword"
-#Filters that support external plugins:
-custom-crafting:
-enabled: false #If this is enabled, all items created by the custom crafting plugin by WolfyScript that are defined in the list will be kept on death.
-items:
-- "myitems:emerald_sword" #Seperate folder and key with a ".".
-executable-items:
-enabled: false #If this is enabled, all items created by the executable items plugin by Ssomar that are defined in the list will be kept on death.
-items:
-- "emerald_sword" #Use the id you entered when creating the item
+  material:
+    enabled: false #If the material filter is enabled, only items that are in this list will be kept on death.
+    materials: #List of Materials: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+      - BUNDLE
+  custom-name:
+    enabled: false #If the custom name filter is enabled, only items with the custom names in this list will be kept on death.
+    check-contains: true #If this is enabled, the plugin will check if the custom name of an item contains the specified name.
+    names:
+      - "&aEmerald sword"
+  #Filters that support external plugins:
+  custom-crafting:
+    enabled: false #If this filter is enabled, all items created by the custom crafting plugin by WolfyScript that are defined in the list will be kept on death.
+    items:
+      - "myitems:emerald_sword" #Seperate folder and key with a ".".
+  executable-items:
+    enabled: false #If this filter is enabled, all items created by the executable items plugin by Ssomar that are defined in the list will be kept on death.
+    items:
+      - "emerald_sword" #Use the id you entered when creating the item
 permission:
-enabled: false
-value: "keepitems.use"
+  enabled: false
+  value: "keepitems.use"
+
+# If this is enabled, items will be cleared instead of kept on player death.
+clear-items: false
 
 # Debugging - If you want to see information about the filters in the console, set this to true.
 # Do not use this on a production server as it will spam the console.
