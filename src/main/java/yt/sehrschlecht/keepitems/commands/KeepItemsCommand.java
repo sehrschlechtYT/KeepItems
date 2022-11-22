@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class KeepItemsCommand implements CommandExecutor, TabExecutor {
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(args.length == 1 && args[0].equalsIgnoreCase("reload")) {
@@ -32,4 +33,5 @@ public class KeepItemsCommand implements CommandExecutor, TabExecutor {
         if(args.length == 1) return Stream.of("reload").filter(string -> string.startsWith(args[0].toLowerCase(Locale.ENGLISH))).collect(Collectors.toList());
         return Collections.emptyList();
     }
+
 }

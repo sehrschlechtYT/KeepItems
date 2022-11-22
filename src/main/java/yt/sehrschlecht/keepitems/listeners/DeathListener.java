@@ -22,38 +22,38 @@ public class DeathListener implements Listener {
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
+        Debug.FILTERS.send("Player " + player.getName() + " respawned.");
         if(itemsToKeep.containsKey(player.getUniqueId())) {
-            Debug.FILTERS.debug("Player " + player.getName() + " respawned. " + itemsToKeep.get(player.getUniqueId()).size() + " items to keep.");
+            Debug.FILTERS.send(itemsToKeep.get(player.getUniqueId()).size() + " items to keep.");
             for (ItemStack itemStack : itemsToKeep.get(player.getUniqueId())) {
-                Debug.FILTERS.debug("Adding " + itemStack.getType() + " to " + player.getName());
+                Debug.FILTERS.send("Adding " + itemStack.getType() + " to " + player.getName());
                 player.getInventory().addItem(itemStack);
             }
         }
         itemsToKeep.remove(player.getUniqueId());
     }
 
-
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         List<ItemStack> drops = event.getDrops();
-        Debug.FILTERS.debug(player.getName() + " died! Amount of drops: " + drops.size());
+        Debug.FILTERS.send(player.getName() + " died! Amount of drops: " + drops.size());
         if(drops.isEmpty()) return;
         Config config = Config.getInstance();
-        if(config.isPermissionEnabled() && !player.hasPermission(config.getPermissionValue())) return;
+        if(config.permissionEnabled && !player.hasPermission(config.permissionValue)) return;
 
         List<ItemStack> items = new ArrayList<>();
-        Debug.FILTERS.debug("Created list of items");
+        Debug.FILTERS.send("Created list of items");
 
         for(Iterator<ItemStack> iterator = drops.iterator(); iterator.hasNext();) {
             ItemStack item = iterator.next();
-            Debug.FILTERS.debug("Checking item: " + item.getType().name());
+            Debug.FILTERS.send("Checking item: " + item.getType().name());
             for (ItemFilter filter : FilterManager.getInstance().getFilters()) {
-                Debug.FILTERS.debug("Checking filter: " + filter.getClass().getSimpleName() + (filter.isEnabled() ? " (enabled)" : " (disabled)"));
+                Debug.FILTERS.send("Checking filter: " + filter.getClass().getSimpleName() + (filter.isEnabled() ? " (enabled)" : " (disabled)"));
                 if(!filter.isEnabled()) continue;
                 try {
-                    if(filter.keepItem(item)) {
-                        Debug.FILTERS.debug("Item " + item.getType().name() + " is kept by filter " + filter.getClass().getSimpleName());
+                    if(filter.shouldKeepItem(item)) {
+                        Debug.FILTERS.send("Item " + item.getType().name() + " is kept by filter " + filter.getClass().getSimpleName());
                         iterator.remove();
                         items.add(item);
                         break;
@@ -65,11 +65,15 @@ public class DeathListener implements Listener {
             }
         }
 
-        Debug.FILTERS.debug("Amount of items to keep: " + items.size());
+        Debug.FILTERS.send("Amount of items to keep: " + items.size());
 
         itemsToKeep.remove(player.getUniqueId());
         if(!items.isEmpty()) {
-            Debug.FILTERS.debug("Adding items to map");
+            if(config.clearItems) {
+                Debug.FILTERS.send("Items won't be added to the map as clear-items is enabled.");
+                return;
+            }
+            Debug.FILTERS.send("Adding items to map");
             itemsToKeep.put(player.getUniqueId(), items);
         }
     }

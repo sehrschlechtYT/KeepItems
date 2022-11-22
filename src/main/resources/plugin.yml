@@ -3,7 +3,7 @@ version: '${project.version}'
 main: yt.sehrschlecht.keepitems.KeepItems
 api-version: 1.14
 authors: [ sehrschlechtYT ]
-description: This plugins adds filters to keep various items in inventory upon death.
+description: Adds filters that allow to keep or remove various items in inventory upon death.
 commands:
   keepitems:
     permission: keepitems.admin
