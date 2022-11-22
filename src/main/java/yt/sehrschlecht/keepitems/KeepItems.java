@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import yt.sehrschlecht.keepitems.commands.KeepItemsCommand;
 import yt.sehrschlecht.keepitems.config.Config;
 import yt.sehrschlecht.keepitems.filters.CustomNameFilter;
+import yt.sehrschlecht.keepitems.filters.EverythingFilter;
 import yt.sehrschlecht.keepitems.filters.FilterManager;
 import yt.sehrschlecht.keepitems.filters.MaterialFilter;
 import yt.sehrschlecht.keepitems.filters.external.CustomCraftingFilter;
@@ -75,7 +76,8 @@ public final class KeepItems extends JavaPlugin {
                 new MaterialFilter(),
                 new CustomNameFilter(),
                 new CustomCraftingFilter(),
-                new ExecutableItemsFilter()
+                new ExecutableItemsFilter(),
+                new EverythingFilter()
         );
     }
 

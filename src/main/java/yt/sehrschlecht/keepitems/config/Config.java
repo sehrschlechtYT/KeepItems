@@ -17,6 +17,8 @@ public class Config extends AbstractConfig {
 
     private static Config instance = null;
 
+    @ConfigOption(key = "filter.everything.enabled", type = Boolean.class)
+    public boolean everythingFilterEnabled;
 
     @ConfigOption(key = "filter.material.enabled", type = Boolean.class)
     public boolean materialFilterEnabled;
