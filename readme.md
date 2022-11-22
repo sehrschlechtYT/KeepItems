@@ -52,7 +52,7 @@ debug: false
 
 ## Filters
 
-There are currently 4 filters. You can add your own filters by using the [KeepItems API](#api).
+There are currently 5 filters. You can add your own filters by using the [KeepItems API](#api).
 
 - Everything (All items are filtered)
 - Material (checks the type of the item)
