@@ -61,10 +61,10 @@ public class Config extends AbstractConfig {
     public static void reload(YamlDocument configuration) {
         try {
             configuration.reload();
+            if(getInstance() != null) getInstance().load(configuration);
         } catch (IOException e) {
             KeepItems.getPlugin().getLogger().log(Level.SEVERE, "Config: Could not reload configuration: " + e.getMessage());
         }
-        new Config(configuration);
     }
 
     public List<Material> getMaterials() {
