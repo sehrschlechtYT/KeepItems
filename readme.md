@@ -12,10 +12,11 @@ The config should be self explanatory. If you have a question, you can open a ti
 
 ```
 # Do NOT edit this!
-# Do NOT edit this!
-config-version: 2
+config-version: 3
 
 filter:
+  everything:
+    enabled: false #If the everything filter is enabled, all items will be kept on death.
   material:
     enabled: false #If the material filter is enabled, only items that are in this list will be kept on death.
     materials: #List of Materials: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
@@ -38,7 +39,7 @@ permission:
   enabled: false
   value: "keepitems.use"
 
-# If this is enabled, items will be cleared instead of kept on player death.
+# If this is enabled, items will be removed instead of kept on player death.
 clear-items: false
 
 # Debugging - If you want to see information about the filters in the console, set this to true.
@@ -53,6 +54,7 @@ debug: false
 
 There are currently 4 filters. You can add your own filters by using the [KeepItems API](#api).
 
+- Everything (All items are filtered)
 - Material (checks the type of the item)
 - Custom Name (checks the custom name of the item)
 - Support for the [Custom Crafting](https://www.spigotmc.org/resources/customcrafting-advanced-custom-recipe-plugin-1-16-1-19-free.55883/) plugin
