@@ -1,6 +1,6 @@
 package yt.sehrschlecht.keepitems.filters;
 
-import jdk.internal.net.http.common.Pair;
+import yt.sehrschlecht.schlechteutils.data.Pair;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author sehrschlechtYT | https://github.com/sehrschlechtYT
- * @since 1.0
+ * @since 2.2
  */
 public class CustomModelDataFilter extends ItemFilter {
     /**
@@ -31,10 +31,11 @@ public class CustomModelDataFilter extends ItemFilter {
      */
     @Override
     public boolean shouldKeepItem(@NotNull ItemStack item) {
+        if(!item.hasItemMeta() || !item.getItemMeta().hasCustomModelData()) return false;
         List<Pair<Material, Integer>> itemsToFilter = Config.getInstance().getCustomModelDataItems();
         for (Pair<Material, Integer> pair : itemsToFilter) {
-            Material material = pair.first;
-            int customModelData = pair.second;
+            Material material = pair.getFirst();
+            int customModelData = pair.getSecond();
             if(item.getType() == material && item.getItemMeta() != null && item.getItemMeta().getCustomModelData() == customModelData) {
                 return true;
             }

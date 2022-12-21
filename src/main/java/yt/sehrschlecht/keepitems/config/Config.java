@@ -1,7 +1,7 @@
 package yt.sehrschlecht.keepitems.config;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
-import jdk.internal.net.http.common.Pair;
+import yt.sehrschlecht.schlechteutils.data.Pair;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import yt.sehrschlecht.keepitems.KeepItems;
