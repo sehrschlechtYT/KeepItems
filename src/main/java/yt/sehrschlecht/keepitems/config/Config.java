@@ -1,6 +1,7 @@
 package yt.sehrschlecht.keepitems.config;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
+import yt.sehrschlecht.schlechteutils.data.Pair;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import yt.sehrschlecht.keepitems.KeepItems;
@@ -31,6 +32,11 @@ public class Config extends AbstractConfig {
     public boolean customNameCheckContains;
     @ConfigOption(key = "filter.custom-name.names", type = List.class)
     public List<String> customNames;
+
+    @ConfigOption(key = "filter.custom-model-data.enabled", type = Boolean.class)
+    public boolean customModelDataFilterEnabled;
+    @ConfigOption(key = "filter.custom-model-data.items", type = List.class)
+    public List<String> customModelDataItems;
 
     //ToDo somehow broken
     @ConfigOption(key = "filter.custom-crafting.enabled", type = Boolean.class)
@@ -86,4 +92,29 @@ public class Config extends AbstractConfig {
         return instance;
     }
 
+    public List<Pair<Material, Integer>> getCustomModelDataItems() {
+        return customModelDataItems.stream()
+                .map(string -> {
+                    String first = string.split(":")[0];
+                    String second = string.split(":")[1];
+
+                    Material type;
+                    try {
+                        type = Material.valueOf(first.toUpperCase());
+                    } catch (Exception exception) {
+                        KeepItems.getPlugin().getLogger().log(Level.SEVERE, "The specified material \"" + first + "\" is invalid!");
+                        return null;
+                    };
+
+                    int data;
+                    try {
+                        data = Integer.parseInt(second);
+                    } catch (Exception exception) {
+                        KeepItems.getPlugin().getLogger().log(Level.SEVERE, "The specified custom model data \"" + second + "\" is invalid!");
+                        return null;
+                    };
+
+                    return new Pair<>(type, data);
+                }).collect(Collectors.toList());
+    }
 }

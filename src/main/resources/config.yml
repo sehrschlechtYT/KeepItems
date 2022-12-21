@@ -1,5 +1,4 @@
-# Do NOT edit this!
-config-version: 3
+config-version: 4 #Do NOT edit this!
 
 filter:
   everything:
@@ -13,6 +12,10 @@ filter:
     check-contains: true #If this is enabled, the plugin will check if the custom name of an item contains the specified name.
     names:
       - "&aEmerald sword"
+  custom-model-data:
+    enabled: false #If the custom model data filter is enabled, only items with the type + custom model data in this list will be kept on death.
+    items: #Syntax: ITEM_TYPE:CUSTOM_MODEL_DATA | List of Materials: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+      - DIAMOND_SWORD:12345
   #Filters that support external plugins:
   custom-crafting:
     enabled: false #If this filter is enabled, all items created by the custom crafting plugin by WolfyScript that are defined in the list will be kept on death.
