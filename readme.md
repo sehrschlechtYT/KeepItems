@@ -1,4 +1,4 @@
-# KeepItems (1.14.4 - 1.19)
+# KeepItems (1.14.4 - 1.19.3)
 ### Keeps various items in the inventory upon player death
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/sehrschlechtYT/KeepItems/graphs/commit-activity)
@@ -11,8 +11,7 @@ The config should be self explanatory. If you have a question, you can open a ti
 
 
 ```
-# Do NOT edit this!
-config-version: 3
+config-version: 4 #Do NOT edit this!
 
 filter:
   everything:
@@ -26,6 +25,10 @@ filter:
     check-contains: true #If this is enabled, the plugin will check if the custom name of an item contains the specified name.
     names:
       - "&aEmerald sword"
+  custom-model-data:
+    enabled: false
+    items:
+      - DIAMOND_SWORD:12345
   #Filters that support external plugins:
   custom-crafting:
     enabled: false #If this filter is enabled, all items created by the custom crafting plugin by WolfyScript that are defined in the list will be kept on death.
@@ -52,11 +55,12 @@ debug: false
 
 ## Filters
 
-There are currently 5 filters. You can add your own filters by using the [KeepItems API](#api).
+There are currently 6 filters. You can add your own filters by using the [KeepItems API](#api).
 
 - Everything (All items are filtered)
 - Material (checks the type of the item)
 - Custom Name (checks the custom name of the item)
+- Custom Model Data (checks the type and custom model data of the item)
 - Support for the [Custom Crafting](https://www.spigotmc.org/resources/customcrafting-advanced-custom-recipe-plugin-1-16-1-19-free.55883/) plugin
 - Support for the [Executable Items](https://www.spigotmc.org/resources/custom-items-free-executable-items.77578/) plugin
 

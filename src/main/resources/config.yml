@@ -1,5 +1,4 @@
-# Do NOT edit this!
-config-version: 3
+config-version: 4 #Do NOT edit this!
 
 filter:
   everything:
@@ -13,6 +12,10 @@ filter:
     check-contains: true #If this is enabled, the plugin will check if the custom name of an item contains the specified name.
     names:
       - "&aEmerald sword"
+  custom-model-data:
+    enabled: false
+    items:
+      - DIAMOND_SWORD:12345
   #Filters that support external plugins:
   custom-crafting:
     enabled: false #If this filter is enabled, all items created by the custom crafting plugin by WolfyScript that are defined in the list will be kept on death.
