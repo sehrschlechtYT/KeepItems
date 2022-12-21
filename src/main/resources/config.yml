@@ -13,8 +13,8 @@ filter:
     names:
       - "&aEmerald sword"
   custom-model-data:
-    enabled: false
-    items:
+    enabled: false #If the custom model data filter is enabled, only items with the type + custom model data in this list will be kept on death.
+    items: #Syntax: ITEM_TYPE:CUSTOM_MODEL_DATA | List of Materials: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
       - DIAMOND_SWORD:12345
   #Filters that support external plugins:
   custom-crafting:
