@@ -1,10 +1,13 @@
 specVersion: 1
 type: plugin
 name: KeepItems
-authors: [ "sehrschlechtYT" ]
+authors:
+  - sehrschlechtYT
 supportedGameVersions: ^1.14.4
 category: misc
-introduction: Keeps/removes various items in the inventory upon player death
+introduction:
+  de: Behält/Entfernt festgelegte Items im Inventar beim Tod
+  en: Keeps/removes various items in the inventory upon player death
 description: |
   # KeepItems (1.14.4 - 1.19.3)
   ### Keeps/removes various items in the inventory upon player death
