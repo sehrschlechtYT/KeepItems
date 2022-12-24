@@ -1,5 +1,5 @@
 # KeepItems (1.14.4 - 1.19.3)
-### Keeps various items in the inventory upon player death
+### Keeps/removes various items in the inventory upon player death
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/sehrschlechtYT/KeepItems/graphs/commit-activity)
 
