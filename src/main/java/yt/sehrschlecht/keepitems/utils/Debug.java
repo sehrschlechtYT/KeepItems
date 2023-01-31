@@ -1,25 +1,26 @@
 package yt.sehrschlecht.keepitems.utils;
 
 import yt.sehrschlecht.keepitems.KeepItems;
+import yt.sehrschlecht.keepitems.config.Config;
+
+import java.util.function.Supplier;
 
 /**
  * @author sehrschlechtYT | https://github.com/sehrschlechtYT
  * @since 2.0
  */
 public enum Debug {
-    FILTERS("debug"),
-    CONFIG("debug-config");
+    FILTERS(() -> Config.getInstance().filterDebug);
 
-    private final String configKey;
+    private final Supplier<Boolean> enabled;
 
-    Debug(String configKey) {
-        this.configKey = configKey;
+    Debug(Supplier<Boolean> enabled) {
+        this.enabled = enabled;
     }
 
     public void send(String message) {
-        if(KeepItems.getConfiguration().contains(configKey) && KeepItems.getConfiguration().getBoolean(configKey)) {
+        if(enabled.get()) {
             KeepItems.getPlugin().getLogger().info("[Debug] " + message);
         }
     }
-
 }

@@ -1,3 +1,8 @@
+#
+# DEPRECATED: This config file is deprecated and will be removed in the future.
+# Config files have been replaced with a class based system.
+# Please edit the config file in yt.sehrschlecht.keepitems.config.Config.java instead.
+#
 config-version: 4 #Do NOT edit this!
 
 filter:

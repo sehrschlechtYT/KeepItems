@@ -1,11 +1,5 @@
 package yt.sehrschlecht.keepitems;
 
-import dev.dejvokep.boostedyaml.YamlDocument;
-import dev.dejvokep.boostedyaml.dvs.versioning.BasicVersioning;
-import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings;
-import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
-import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
-import dev.dejvokep.boostedyaml.settings.updater.UpdaterSettings;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import yt.sehrschlecht.keepitems.commands.KeepItemsCommand;
@@ -16,13 +10,9 @@ import yt.sehrschlecht.keepitems.filters.external.ExecutableItemsFilter;
 import yt.sehrschlecht.keepitems.listeners.DeathListener;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
 
 public final class KeepItems extends JavaPlugin {
     private static KeepItems plugin;
-    private static YamlDocument configuration;
-
     @Override
     public void onEnable() {
         plugin = this;
@@ -39,21 +29,7 @@ public final class KeepItems extends JavaPlugin {
     }
 
     private void createConfig() {
-        try {
-            configuration = YamlDocument.create(
-                    new File(getDataFolder(), "config.yml"),
-                    Objects.requireNonNull(getResource("config.yml")),
-                    GeneralSettings.DEFAULT,
-                    LoaderSettings.builder().setAutoUpdate(true).build(),
-                    DumperSettings.DEFAULT,
-                    UpdaterSettings.builder().setVersioning(new BasicVersioning("config-version")).build()
-
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        new Config(configuration);
+        new Config(new File(getDataFolder(), "config.yml")).initialize();
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -81,10 +57,6 @@ public final class KeepItems extends JavaPlugin {
 
     public static KeepItems getPlugin() {
         return plugin;
-    }
-
-    public static YamlDocument getConfiguration() {
-        return configuration;
     }
 
     public static String getPrefix() {
