@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import yt.sehrschlecht.classconfig.SimpleClassConfig;
 import yt.sehrschlecht.classconfig.options.ConfigOption;
+import yt.sehrschlecht.classconfig.options.MigrateOption;
 import yt.sehrschlecht.keepitems.KeepItems;
 import yt.sehrschlecht.schlechteutils.data.Pair;
 
@@ -17,32 +18,32 @@ public class Config extends SimpleClassConfig {
 
     private static Config instance = null;
 
-    @ConfigOption(key = "filter.everything.enabled", type = Boolean.class, comments = {
+    @ConfigOption(key = "filter.everything.enabled", type = boolean.class, comments = {
             "If the everything filter is enabled, all items will be kept on death."
     })
     public boolean everythingFilterEnabled = false;
 
-    @ConfigOption(key = "filter.material.enabled", type = Boolean.class, comments = {
+    @ConfigOption(key = "filter.material.enabled", type = boolean.class, comments = {
             "If the material filter is enabled, only items that are in this list will be kept on death."
     })
     public boolean materialFilterEnabled = false;
     @ConfigOption(key = "filter.material.materials", type = List.class, comments = {
-            "#List of Materials: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html"
+            "List of Materials: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html"
     })
     public List<String> materials = Collections.singletonList("BUNDLE");
 
-    @ConfigOption(key = "filter.custom-name.enabled", type = Boolean.class, comments = {
+    @ConfigOption(key = "filter.custom-name.enabled", type = boolean.class, comments = {
             "If the custom name filter is enabled, only items with the custom names in this list will be kept on death."
     })
     public boolean customNameFilterEnabled = false;
-    @ConfigOption(key = "filter.custom-name.check-contains", type = Boolean.class, comments = {
+    @ConfigOption(key = "filter.custom-name.check-contains", type = boolean.class, comments = {
             "If this is enabled, the plugin will check if the custom name of an item contains the specified name."
     })
     public boolean customNameCheckContains = true;
     @ConfigOption(key = "filter.custom-name.names", type = List.class)
     public List<String> customNames = Collections.singletonList("&aEmerald sword");
 
-    @ConfigOption(key = "filter.custom-model-data.enabled", type = Boolean.class, comments = {
+    @ConfigOption(key = "filter.custom-model-data.enabled", type = boolean.class, comments = {
             "If the custom model data filter is enabled, only items with the type + custom model data in this list will be kept on death."
     })
     public boolean customModelDataFilterEnabled = false;
@@ -52,7 +53,7 @@ public class Config extends SimpleClassConfig {
     public List<String> customModelDataItems = Collections.singletonList("DIAMOND_SWORD:12345");
 
     //ToDo somehow broken
-    @ConfigOption(key = "filter.custom-crafting.enabled", type = Boolean.class, comments = {
+    @ConfigOption(key = "filter.custom-crafting.enabled", type = boolean.class, comments = {
             "If this filter is enabled, all items created by the custom crafting plugin by WolfyScript that are defined in the list will be kept on death."
     })
     public boolean customCraftingFilterEnabled = false;
@@ -61,7 +62,7 @@ public class Config extends SimpleClassConfig {
     })
     public List<String> customCraftingItems = Collections.singletonList("myitems:emerald_sword");
 
-    @ConfigOption(key = "filter.executable-items.enabled", type = Boolean.class, comments = {
+    @ConfigOption(key = "filter.executable-items.enabled", type = boolean.class, comments = {
             "If this filter is enabled, all items created by the executable items plugin by Ssomar that are defined in the list will be kept on death."
     })
     public boolean executableItemsFilterEnabled = false;
@@ -70,26 +71,23 @@ public class Config extends SimpleClassConfig {
     })
     public List<String> executableItemsItems = Collections.singletonList("emerald_sword");
 
-    @ConfigOption(key = "permission.enabled", type = Boolean.class)
+    @ConfigOption(key = "permission.enabled", type = boolean.class)
     public boolean permissionEnabled = false;
     @ConfigOption(key = "permission.value", type = String.class)
     public String permissionValue = "keepitems.use";
 
-    @ConfigOption(key = "clear-items", type = Boolean.class, comments = {
+    @ConfigOption(key = "clear-items", type = boolean.class, comments = {
             "If this is enabled, items will be removed instead of kept on player death."
     })
     public boolean clearItems = false;
 
-    //debug options
-    @ConfigOption(key = "debug", type = Boolean.class, comments = {
-            "Debugging - If you want to see information about the filters in the console, set this to true.",
-            "Do not use this on a production server as it will spam the console."
-    })
-    public boolean filterDebug = false;
+    @Deprecated
+    @MigrateOption(oldKeys = "debug-config", deleteOldKeys = true)
+    @ConfigOption(key = "debug-config", type = boolean.class)
+    public boolean configDebug = false;
 
     public Config(File file) {
         super(file);
-        instance = this;
     }
 
     public List<Material> getMaterials() { //ToDo replace with normal material list
